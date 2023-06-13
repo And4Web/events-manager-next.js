@@ -1,15 +1,13 @@
-// import { ToastContainer, toast } from 'react-toastify'
-// import 'react-toastify/dist/ReactToastify.css'
 import { FaPencilAlt, FaTimes } from 'react-icons/fa'
 import Link from 'next/link'
 import Image from 'next/image'
 import Layout from '@/components/Layout'
-// import EventMap from '@/components/EventMap'
+
 import { API_URL } from '@/config/index'
 import styles from '@/styles/Event.module.css'
 import { useRouter } from 'next/router'
 
-export default function EventPage({ evt }) {
+export default function EventPage({evt}) {
   const router = useRouter()
 
   return (
@@ -36,8 +34,6 @@ export default function EventPage({ evt }) {
         <p>{evt.description}</p>
         <h3>Venue: {evt.venue}</h3>
         <p>{evt.address}</p>
-
-        {/* <EventMap evt={evt} /> */}
 
         <Link href='/events' legacyBehavior>
           <a className={styles.back}>{'<'} Go Back</a>
@@ -79,7 +75,8 @@ export async function getServerSideProps({ query: { slug } }) {
 
   return {
     props: {
-      evt: events[0],
+      evt: events[0],    
     },
+    revalidate: 3
   }
 }
