@@ -11,7 +11,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <Link href='/'>
+        <Link href='/' legacyBehavior>
           <a>DJ Events</a>
         </Link>
       </div>
@@ -21,8 +21,8 @@ export default function Header() {
       <nav>
         <ul>
           <li>
-            <Link href='/events'>
-              <a>Events</a>
+            <Link to='/events' legacyBehavior>
+              <a >Events</a>
             </Link>
           </li>
          

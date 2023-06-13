@@ -9,7 +9,7 @@ export default function EventItem({ evt }) {
         <Image
           src={
             evt.image
-              ? evt.image.formats.thumbnail.url
+              ? evt.image
               : '/images/event-default.png'
           }
           width={170}
@@ -25,7 +25,7 @@ export default function EventItem({ evt }) {
       </div>
 
       <div className={styles.link}>
-        <Link href={`/events/${evt.slug}`}>
+        <Link href={`/events/${evt.slug}`} legacyBehavior>
           <a className='btn'>Details</a>
         </Link>
       </div>

@@ -39,7 +39,7 @@ export default function EventPage({ evt }) {
 
         {/* <EventMap evt={evt} /> */}
 
-        <Link href='/events'>
+        <Link href='/events' legacyBehavior>
           <a className={styles.back}>{'<'} Go Back</a>
         </Link>
       </div>

@@ -14,7 +14,7 @@ export default function HomePage({ events }) {
       ))}
 
       {events.length > 0 && (
-        <Link href='/events'>
+        <Link href='/events' legacyBehavior>
           <a className='btn-secondary'>View All Events</a>
         </Link>
       )}
@@ -25,9 +25,10 @@ export default function HomePage({ events }) {
 export async function getStaticProps() {
   const res = await fetch(`${API_URL}/api/events`)
   const events = await res.json()
-
+  // console.log("parsed JSON: ", JSON.parse(events))
+  // console.log("events: ", events[0]);
   return {
     props: { events },
-    revalidate: 1,
+    // revalidate: 1,
   }
 }
