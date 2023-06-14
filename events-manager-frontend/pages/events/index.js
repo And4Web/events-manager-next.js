@@ -5,7 +5,7 @@ import { API_URL } from "@/config/index";
 
 export default function EventsPage({events}) {
   
-  console.log("events: ", events)
+  // console.log("events: ", events)
   return (
     <Layout>
       <h1>Events</h1>
@@ -20,7 +20,7 @@ export default function EventsPage({events}) {
 
 export async function getStaticProps() {
   try {
-    const res = await fetch(`${API_URL}/api/events`)
+    const res = await fetch(`${API_URL}/events`)
     const events = await res.json()
     // console.log({events})
     return {
