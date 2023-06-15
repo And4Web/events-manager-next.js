@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 
 export default function EventPage({evt}) {
   const router = useRouter()
-  console.log("event: ", evt)
+  // console.log("event: ", evt)
 
   const deleteEvent = ()=>{}
 
@@ -23,14 +23,14 @@ export default function EventPage({evt}) {
           <a href="#" className={styles.delete} onClick={deleteEvent}>Delete Event</a>
         </div>
         <span>
-          {new Date(evt.date).toLocaleDateString('en-US')} at {evt.time}
+          {new Date(evt.attributes.date).toLocaleDateString('en-US')} at {evt.attributes.time}
         </span>
-        <h1>{evt.name}</h1>
+        <h1>{evt.attributes.name}</h1>
         {/* <ToastContainer /> */}
-        {evt.image && (
+        {evt.attributes.image && (
           <div className={styles.image}>
             <Image
-              src={evt.image}
+              src={evt.attributes.image.data.attributes.formats.large.url}
               width={960}
               height={600}
             />
@@ -38,11 +38,11 @@ export default function EventPage({evt}) {
         )}
 
         <h3>Performers:</h3>
-        <p>{evt.performers}</p>
+        <p>{evt.attributes.performers}</p>
         <h3>Description:</h3>
-        <p>{evt.description}</p>
-        <h3>Venue: {evt.venue}</h3>
-        <p>{evt.address}</p>
+        <p>{evt.attributes.description}</p>
+        <h3>Venue: {evt.attributes.venue}</h3>
+        <p>{evt.attributes.address}</p>
 
         <Link href='/events' legacyBehavior>
           <a className={styles.back}>{'<'} Go Back</a>
@@ -53,11 +53,11 @@ export default function EventPage({evt}) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${API_URL}/events`)
+  const res = await fetch(`${API_URL}/events?populate=*`)
   const events = await res.json()
 
-  const paths = events.map((evt) => ({
-    params: { slug: evt.slug },
+  const paths = events.data.map((evt) => ({
+    params: { slug: evt.attributes.slug },
   }))
 
   return {
@@ -67,12 +67,12 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const res = await fetch(`${API_URL}/events/${slug}`)
+  const res = await fetch(`${API_URL}/events?populate=*&slug=${slug}`)
   const event = await res.json()
-  // console.log("single event: ", event);
+  console.log("single event: ", event);
   return {
     props: {
-      evt: event[0],
+      evt: event.data[0],
     },
     revalidate: 1,
   }
