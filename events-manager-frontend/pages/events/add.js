@@ -37,7 +37,7 @@ export default function AddEventPage() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(values),
+      body: JSON.stringify({data: values}),
     })
 
     if (!res.ok) {
@@ -45,6 +45,7 @@ export default function AddEventPage() {
     } else {
       const evt = await res.json()
       router.push(`/events/${evt.slug}`)
+      toast.success("New Event created")
     }
   }
 
