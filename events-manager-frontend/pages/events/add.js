@@ -44,7 +44,7 @@ export default function AddEventPage() {
       toast.error('Something Went Wrong')
     } else {
       const evt = await res.json()
-      router.push(`/events/${evt.slug}`)
+      // router.push(`/api/slugify/slugs/events/${evt.attributes.slug}`)
       toast.success("New Event created")
     }
   }
