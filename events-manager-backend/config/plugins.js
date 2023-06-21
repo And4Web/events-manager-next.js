@@ -21,7 +21,7 @@ module.exports = ({ env }) => ({
     enabled: true,
     config: {
       contentTypes: {
-        article: {
+        event: {
           field: 'slug',
           references: 'name',
         },

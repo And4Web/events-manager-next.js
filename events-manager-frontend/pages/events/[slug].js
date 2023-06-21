@@ -67,12 +67,30 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const res = await fetch(`${API_URL}/events?populate=*&slug=${slug}`)
+  console.log("Hello slug: ", slug)
+  const res = await fetch(`${API_URL}/events?slug=${slug}&populate=*`)
   const event = await res.json()
-  console.log("single event: ", event);
+
+  let evtId;  
+  event.data.forEach(e=>{
+    // console.log(e.id)
+    // console.log(e.attributes.slug)
+    if(e.attributes.slug === slug){
+      evtId = e.id;
+    }
+    console.log(slug, evtId)    
+  })
+  // console.log("evtId: ", evtId);
+  // console.log("slug: ", slug)  
+  
+  // const res = await fetch(`${API_URL}/api/slugify/slugs/events/${slug}`)
+  
+  console.log("single event: ", event.data[evtId]);
+  // const evtId = (event.data.attributes.slug === slug) ? event.data.id : 0;
+  
   return {
     props: {
-      evt: event.data[0],
+      evt: event.data[evtId] || [],
     },
     revalidate: 1,
   }
