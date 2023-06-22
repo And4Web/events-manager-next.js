@@ -16,7 +16,7 @@ export default function HomePage({ events }) {
 
       {events.data.length > 0 && (
         <Link href='/events' legacyBehavior>
-          <a className='btn-secondary'>View All Events</a>
+          <a className='btn-secondary'>Show All Events</a>
         </Link>
       )}
     </Layout>
@@ -24,7 +24,7 @@ export default function HomePage({ events }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`${API_URL}/events?populate=*&sort=date:ASC&_limit=3`)
+  const res = await fetch(`${API_URL}/events?populate=*&sort=date:ASC&pagination[start]=0&pagination[limit]=3`)
   const events = await res.json()
   // console.log("EVENTS: ", events.data[0])
   return {
