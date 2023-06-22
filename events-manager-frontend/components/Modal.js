@@ -1,7 +1,9 @@
+//https://devrecipes.net/modal-component-with-next-js/
 import {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import styles from '@/styles/Modal.module.css';
 import {FaTimes} from 'react-icons/fa';
+
 
 const Modal = function({ show, onClose, children, title }){
   const [isBrowser, setIsBrowser] = useState(false);
