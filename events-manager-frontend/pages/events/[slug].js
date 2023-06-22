@@ -41,7 +41,7 @@ export default function EventPage({evt}) {
         </span>
         <h1>{evt.attributes.name}</h1>
         <ToastContainer />
-        {evt.attributes.image && (
+        {evt.attributes.image.data && (
           <div className={styles.image}>
             <Image
               src={evt.attributes.image.data.attributes.formats.large.url}

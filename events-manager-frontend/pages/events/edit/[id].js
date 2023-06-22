@@ -22,7 +22,7 @@ export default function EditEventPage({evt}) {
     description,
   })
   
-  const [imagePreview, setImagePreview] = useState((evt.attributes.image? evt.attributes.image.data.attributes.formats.thumbnail.url : null));
+  const [imagePreview, setImagePreview] = useState((evt.attributes.image.data ? evt.attributes.image.data.attributes.formats.thumbnail.url : null));
 
   const router = useRouter()
 
@@ -148,7 +148,7 @@ export default function EditEventPage({evt}) {
         </div>
         ) : (
           <div>
-            <p>No Image uploaded</p>
+            <p>No Image Available</p>
           </div>
         )}
         <button className='btn-secondary' style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}><FaImage style={{margin: ".2rem"}}/>Update Image</button>
