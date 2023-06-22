@@ -2,13 +2,14 @@ import moment from 'moment';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { FaImage } from 'react-icons/fa'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/image'
 import Layout from '@/components/Layout'
 import { API_URL } from '@/config/index'
 import styles from '@/styles/Form.module.css'
+import Modal from '@/components/Modal';
 
 export default function EditEventPage({evt}) {
   let {name, performers, venue, address, date, time, description} = evt.attributes;
@@ -23,6 +24,7 @@ export default function EditEventPage({evt}) {
   })
   
   const [imagePreview, setImagePreview] = useState((evt.attributes.image.data ? evt.attributes.image.data.attributes.formats.thumbnail.url : null));
+  const [showModal, setShowModal] = useState(false); 
 
   const router = useRouter()
 
@@ -37,7 +39,7 @@ export default function EditEventPage({evt}) {
     if (hasEmptyFields) {
       toast.error('Please fill in all fields')
     }
-
+    
     const res = await fetch(`${API_URL}/events/${evt.id}`, {
       method: 'PUT',
       headers: {
@@ -46,7 +48,7 @@ export default function EditEventPage({evt}) {
       body: JSON.stringify({data: values}),
     })
 
-    console.log({res});
+    // console.log({res});
 
     if (!res.ok) {
       toast.error('Something Went Wrong')
@@ -141,7 +143,12 @@ export default function EditEventPage({evt}) {
             onChange={handleInputChange}
           ></textarea>
         </div>
-        <h2>Image preview:</h2>
+        
+
+        <input type='submit' value='Update Event' className='btn' />
+      </form>
+
+      <h2>Image preview:</h2>
         {imagePreview ? (
           <div>
           <Image src={imagePreview} height={100} width={170} alt={imagePreview}/>
@@ -151,10 +158,8 @@ export default function EditEventPage({evt}) {
             <p>No Image Available</p>
           </div>
         )}
-        <button className='btn-secondary' style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}><FaImage style={{margin: ".2rem"}}/>Update Image</button>
-
-        <input type='submit' value='Update Event' className='btn' />
-      </form>
+        <button className='btn-secondary btn-icon' style={{display: "flex", justifyContent: "space-between", alignItems: "center"}} onClick={()=>setShowModal(true)}><FaImage style={{margin: ".2rem"}}/>Update Image</button>
+        <Modal show={showModal} onClose={()=>setShowModal(false)} >Image Upload</Modal>
     </Layout>
   )
 }
