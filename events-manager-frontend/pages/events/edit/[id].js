@@ -60,7 +60,7 @@ export default function EditEventPage({ evt }) {
       toast.error("Something Went Wrong");
     } else {
       const evt = await res.json();
-      toast.success("succesfully update the event.");
+      toast.success("succesfully updated the event.");
       router.push("/events");
     }
   };

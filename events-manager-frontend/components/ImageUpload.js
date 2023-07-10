@@ -35,7 +35,7 @@ export default function ImageUpload({ evtId, imageUploaded }) {
 
   return (
     <div className={styles.form}>
-      <h1>Upload Image Component</h1>
+      <h1>Upload Image</h1>
       <form onSubmit={handleSubmit}>
         <div className={styles.file}>
           <input type="file" onChange={handleFileChange} />
